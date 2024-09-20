@@ -57,10 +57,7 @@ function joga(e) {
 
     if (checagemVitoria(classAAdicionar)) {
         finalizarJogo(classAAdicionar.toUpperCase() + " GANHOU!");
-    }
-
-    console.log(checagemEmpate());
-    if (checagemEmpate()) {
+    } else if (checagemEmpate()) {
         finalizarJogo("EMPATE!")
     }
 }
