@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-size: 10px;
 }
 
 body {
@@ -56,7 +57,37 @@ body {
 }
 
 .mensagem-vencedor {
-    display: none;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.87);
+    position: fixed;
+    top: 0;
+}
+
+.mensagem-vencedor > div {
+    display: flex;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mensagem-vencedor p {
+    font-size: 5rem;
+    text-shadow: white 2px 4px 10px;
+    margin-bottom: 20px;
+}
+
+.mensagem-vencedor button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 3rem;
+    cursor: pointer;
 }
 
 .x,
@@ -75,6 +106,6 @@ body {
     content: "◯"
 }
 
-.mostrar-mensagem-vitoria {
-    display: flex;
+.none {
+    display: none;
 }

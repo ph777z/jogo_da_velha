@@ -1,4 +1,6 @@
 const celulas = document.querySelectorAll(".celula");
+const mensagemVitoriaDiv = document.querySelector(".mensagem-vencedor");
+const botaoReiniciar = mensagemVitoriaDiv.querySelector("button");
 
 let turnoBola = false;
 
@@ -14,26 +16,35 @@ const combinacoesVitoria = [
 ]
 
 function checagemVitoria(jogadorAtual) {
-    return combinacoesVitoria.some((combinacoes) => {
-        console.log(combinacoes);
+    return combinacoesVitoria.some(combinacoes => {
         return combinacoes.every(index => {
             return celulas[index].classList.contains(jogadorAtual);
         })
-    })
+    });
+}
+
+function checagemEmpate() {
+    return [...celulas].every(celula => {
+        return celula.classList.contains("x") || celula.classList.contains("bola");
+    });
 }
 
 function iniciarJogo() {
     for (const celula of celulas) {
+        celula.classList.remove("bola");
+        celula.classList.remove("x");
+        celula.removeEventListener("click", joga);
         celula.addEventListener("click", joga, { once: true });
     }
+
+    mensagemVitoriaDiv.classList.add("none");
 }
 
-function finalizarJogo(jogador) {
-    const mensagemVitoriaDiv = document.querySelector(".mensagem-vencedor")
+function finalizarJogo(mensagem) {
     const mensagemVitoriaCampo = mensagemVitoriaDiv.querySelector("p");
 
-    mensagemVitoriaCampo.innerText = jogador + " ganhou!"
-    mensagemVitoriaDiv.classList.add("mostrar-mensagem-vitoria")
+    mensagemVitoriaCampo.innerText = mensagem;
+    mensagemVitoriaDiv.classList.remove("none");
 }
 
 function joga(e) {
@@ -42,11 +53,17 @@ function joga(e) {
 
     celula.classList.add(classAAdicionar);
 
-    turnoBola = !turnoBola
+    turnoBola = !turnoBola;
 
     if (checagemVitoria(classAAdicionar)) {
-        finalizarJogo(classAAdicionar);
+        finalizarJogo(classAAdicionar.toUpperCase() + " GANHOU!");
+    }
+
+    console.log(checagemEmpate());
+    if (checagemEmpate()) {
+        finalizarJogo("EMPATE!")
     }
 }
 
 iniciarJogo();
+botaoReiniciar.addEventListener("click", iniciarJogo);
